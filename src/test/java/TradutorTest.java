@@ -26,13 +26,15 @@ public class TradutorTest {
         String expressao1 = "2+8";
         String expressao2 = "28+";
         String expressao3 = "+234";
+        String expressao4 = "+ab";
         TradutorPreFixParaPosFix tradutor = new TradutorPreFixParaPosFix();
 
         //Teste
         assertAll(
                 () -> assertThrows(SintaxError.class, () -> tradutor.verificarExpressao(expressao1)),
                 () -> assertThrows(SintaxError.class, () -> tradutor.verificarExpressao(expressao2)),
-                () -> assertThrows(SintaxError.class, () -> tradutor.verificarExpressao(expressao3))
+                () -> assertThrows(SintaxError.class, () -> tradutor.verificarExpressao(expressao3)),
+                () -> assertThrows(SintaxError.class, () -> tradutor.verificarExpressao(expressao4))
         );
     }
 
