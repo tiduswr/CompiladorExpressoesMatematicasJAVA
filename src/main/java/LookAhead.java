@@ -7,16 +7,18 @@ public class LookAhead<E> extends LinkedList<E> {
     public LookAhead(){}
 
     public E current(){
+        if(index == size())
+            return null;
         return index >= 0 ? this.get(index) : null;
     }
 
     public E next(){
         if(index >= 0){
             index++;
-            if(index >= size()){
+            if(index > size())
                 index--;
+            if(index == size())
                 return null;
-            }
             return this.get(index);
         }
         return current();

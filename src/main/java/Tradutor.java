@@ -39,20 +39,27 @@ public class Tradutor {
         }
     }
 
+    private void expr2() throws SintaxError {
+        String TOKEN = LOOK_AHEAD.current();
+        if(TOKEN != null){
+            if(VALID_DIGITS.contains(TOKEN)){
+                term(); expr();
+            }else{
+                expr();
+            }
+        }
+    }
+
     private void expr() throws SintaxError {
         String TOKEN = LOOK_AHEAD.current();
         if(TOKEN != null){
             if(TOKEN.equals("+")){
-                match("+"); term(); expr();
+                match("+"); term(); expr2();
             }else if(TOKEN.equals("-")){
-                match("-"); term(); expr();
-            }else if(!LOOK_AHEAD.ehPrimeiraPosicao()){
-                term();
+                match("-"); term(); expr2();
             }else{
                 throw new SintaxError(TOKEN + " -> Não reconhecido!");
             }
-        }else if(LOOK_AHEAD.ehPrimeiraPosicao()){
-            throw new SintaxError("VAZIO");
         }
     }
 
