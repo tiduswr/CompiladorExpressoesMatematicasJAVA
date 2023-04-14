@@ -6,13 +6,13 @@ public class LookAhead<E> extends LinkedList<E> {
 
     public LookAhead(){}
 
-    public E current(){
+    public E atual(){
         if(index == size())
             return null;
         return index >= 0 ? this.get(index) : null;
     }
 
-    public E next(){
+    public E proximo(){
         if(index >= 0){
             index++;
             if(index > size())
@@ -21,23 +21,18 @@ public class LookAhead<E> extends LinkedList<E> {
                 return null;
             return this.get(index);
         }
-        return current();
+        return atual();
     }
 
-    public E prev(){
+    public E anterior(){
         if(index > 0){
             index--;
             return this.get(index);
         }
-        return current();
+        return atual();
     }
 
-    public boolean ehPrimeiraPosicao() {
-        return index == 0;
-    }
-
-    @Override
-    public void clear(){
+    public void resetarLookAhead(){
         index = 0;
         super.clear();
     }
