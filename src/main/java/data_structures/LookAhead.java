@@ -1,5 +1,8 @@
+package data_structures;
+
 import java.util.LinkedList;
 
+@SuppressWarnings("unused")
 public class LookAhead<E> extends LinkedList<E> {
 
     private int index = 0;
