@@ -9,6 +9,8 @@ public class LookAhead<E> extends LinkedList<E> {
 
     public LookAhead(){}
 
+    public int getIndex(){return index;}
+
     public E atual(){
         if(index == size())
             return null;

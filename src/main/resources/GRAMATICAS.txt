@@ -1,0 +1,19 @@
+######## INFIXADA:
+
+<expr> ::= <term> <expr_tail>
+<expr_tail> ::= <op> <term> <expr_tail>
+              | ε
+<term> ::= <digit> <term_tail>
+<term_tail> ::= <op> <digit> <term_tail>
+              | ε
+<digit> ::= 0 | 1 | ... | 9
+<op> ::= + - / *
+
+######## PREFIXADA:
+
+<head> ::= <op> <term> <expr>
+         | ε
+<expr> ::= <term> <head>
+         | <head>
+<digit> ::= 0 | 1 | ... | 9
+<op> ::= + -

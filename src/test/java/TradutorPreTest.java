@@ -43,7 +43,7 @@ public class TradutorPreTest {
         return Arrays.asList(new Object[][]{
                 {"+28", preToPos, "Expressao Prefixa Valida[0]"},
                 {"+7-16", preToPos, "Expressao Prefixa Valida[1]"},
-                {"*2/5+1-34", preToPos, "Expressao Prefixa Valida[2]"},
+                {"/*25+13", preToPos, "Expressao Prefixa Valida[2]"},
                 {"/3*2+89", preToPos, "Expressao Prefixa Valida[3]"}
         });
     }
@@ -67,13 +67,13 @@ public class TradutorPreTest {
         return Arrays.asList(new Object[][]{
                 {"+28", "28+", preToPos, "Traducao Prefixa para PosFixa[0]"},
                 {"-3+5-43", "3543-+-", preToPos, "Traducao Prefixa para PosFixa[1]"},
-                {"*2/5+1-34", "25134-+/*", preToPos, "Traducao Prefixa para PosFixa[2]"},
+                {"-*25+13", "25*13+-", preToPos, "Traducao Prefixa para PosFixa[2]"},
                 {"+28", "+28", preToPre, "Traducao Prefixa para Prefixa[0]"},
                 {"-3+5-43", "-3+5-43", preToPre, "Traducao Prefixa para Prefixa[1]"},
-                {"*2/5+1-34", "*2/5+1-34", preToPre, "Traducao Prefixa para Prefixa[2]"},
+                {"-*25+13", "-*25+13", preToPre, "Traducao Prefixa para Prefixa[2]"},
                 {"+28", "2+8", preToInf, "Traducao Prefixa para Infixa[0]"},
                 {"-3+5-43", "3-5+4-3", preToInf, "Traducao Prefixa para Infixa[1]"},
-                {"*2/5+1-34", "2*5/1+3-4", preToInf, "Traducao Prefixa para Infixa[2]"}
+                {"-*25+13", "2*5-1+3", preToInf, "Traducao Prefixa para Infixa[2]"}
         });
     }
 

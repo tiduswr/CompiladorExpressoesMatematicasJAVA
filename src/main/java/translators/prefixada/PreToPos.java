@@ -11,21 +11,19 @@ public class PreToPos extends MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmOperadorValido(TOKEN)){
-            op();dig(); expr(); pegarToken(TOKEN);
-        }else if(TOKEN != null){
-            throw new SyntaxError("Operador Invalido[" + TOKEN + "]");
+            op(); term(); term(); pegarToken(TOKEN);
+        }else{
+            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndex() + "]");
         }
     }
 
-    protected void expr() throws SyntaxError{
+    protected void term() throws SyntaxError{
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Digits.ehUmDigitoValido(TOKEN)){
-            dig(); head();
-        }else if(Operator.ehUmOperadorValido(TOKEN)){
-            head();
+            dig();
         }else{
-            throw new SyntaxError("Operador Invalido[" + TOKEN + "]");
+            head();
         }
     }
 

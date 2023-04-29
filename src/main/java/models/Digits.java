@@ -34,4 +34,12 @@ public enum Digits {
         }
     }
 
+    public boolean ehIgual(String operatorChecking){
+        return this.toString().equals(operatorChecking);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(digit);
+    }
 }
