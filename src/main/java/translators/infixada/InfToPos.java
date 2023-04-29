@@ -5,10 +5,14 @@ import models.Digits;
 import models.MathExpressionTranslator;
 import models.Operator;
 
+import java.util.Stack;
+
 import static models.Operator.PARENTESES_DIREITO;
 import static models.Operator.PARENTESES_ESQUERDO;
 
-public class InfToInf extends MathExpressionTranslator {
+public class InfToPos extends MathExpressionTranslator {
+
+    Stack<String> stack = new Stack<>();
 
     protected void head() throws SyntaxError {
         String TOKEN = LOOK_AHEAD.atual();
@@ -16,7 +20,7 @@ public class InfToInf extends MathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             term(); headTail();
         }else{
-            throw new SyntaxError("HEAD -> Erro no Token " + TOKEN);
+            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
         }
     }
 
@@ -24,9 +28,9 @@ public class InfToInf extends MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmaAdicaoOuSubtracao(TOKEN)){
-            op(); pegarToken(TOKEN); term(); headTail();
+            stack.push(TOKEN); op(); term(); headTail(); pegarToken(stack.pop());
         }else if(TOKEN != null && !PARENTESES_DIREITO.ehIgual(TOKEN)){
-            throw new SyntaxError("HEAD_TAIL -> Erro no Token" + TOKEN);
+            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
         }
     }
 
@@ -36,7 +40,7 @@ public class InfToInf extends MathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             factor(); termTail();
         }else{
-            throw new SyntaxError("TERM -> rro no Token" + TOKEN);
+            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
         }
     }
 
@@ -44,7 +48,7 @@ public class InfToInf extends MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmaMultiplicacaoOuDivisao(TOKEN)){
-            op(); pegarToken(TOKEN); factor(); termTail();
+            stack.push(TOKEN); op(); factor(); termTail(); pegarToken(stack.pop());
         }
     }
 
@@ -62,10 +66,9 @@ public class InfToInf extends MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
         System.out.println("parenEsq() -> " + TOKEN);
         if(PARENTESES_ESQUERDO.ehIgual(TOKEN)){
-            pegarToken(TOKEN);
             match(TOKEN);
         } else {
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndex() + "]");
+            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
         }
     }
 
@@ -73,10 +76,10 @@ public class InfToInf extends MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
         System.out.println("parenDir() -> " + TOKEN);
         if(PARENTESES_DIREITO.ehIgual(TOKEN)){
-            pegarToken(TOKEN);
             match(TOKEN);
         } else {
             throw new SyntaxError("Parenteses nao fechado");
         }
     }
+
 }

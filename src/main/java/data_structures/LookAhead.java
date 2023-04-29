@@ -11,6 +11,8 @@ public class LookAhead<E> extends LinkedList<E> {
 
     public int getIndex(){return index;}
 
+    public int getIndexReverseFix(){return (size()-1) - index;}
+
     public E atual(){
         if(index == size())
             return null;

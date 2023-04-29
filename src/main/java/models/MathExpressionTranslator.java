@@ -17,7 +17,9 @@ public abstract class MathExpressionTranslator {
         traducao = "";
         receberExpressao(expressao);
         head();
-        if(LOOK_AHEAD.atual() != null) throw new SyntaxError("Expressão inválida no elemento " + LOOK_AHEAD.atual() + "[" + LOOK_AHEAD.getIndex() + "]");
+        if(LOOK_AHEAD.atual() != null)
+            throw new SyntaxError("Erro no elemento " + LOOK_AHEAD.atual() + " [index=" + LOOK_AHEAD.getIndex() + "]");
+
         return this;
     }
 
@@ -47,7 +49,7 @@ public abstract class MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmOperadorValido(TOKEN)){
-            //System.out.println("op() -> " + TOKEN);
+            System.out.println("op() -> " + TOKEN);
             match(TOKEN);
         }else{
             throw new SyntaxError("Operador Invalido[" + TOKEN + "]");
@@ -58,7 +60,7 @@ public abstract class MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Digits.ehUmDigitoValido(TOKEN)){
-            //System.out.println("dig() -> " + TOKEN);
+            System.out.println("dig() -> " + TOKEN);
             match(TOKEN); pegarToken(TOKEN);
         }else{
             throw new SyntaxError("Digito Invalido[" + TOKEN + "]");

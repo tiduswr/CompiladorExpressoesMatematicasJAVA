@@ -23,7 +23,11 @@ public class PreToInfix extends MathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN)){
             dig();
         }else{
-            head();
+            if(Operator.ehUmaMultiplicacaoOuDivisao(TOKEN)){
+                head();
+            }else{
+                pegarToken("("); head(); pegarToken(")");
+            }
         }
     }
 }

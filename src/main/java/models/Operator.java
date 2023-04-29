@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 @SuppressWarnings("unused")
 public enum Operator {
-    MAIS("+"), MENOS("-"), VEZES("*"), DIVISAO("/");
+    MAIS("+"), MENOS("-"), VEZES("*"), DIVISAO("/"), PARENTESES_ESQUERDO("("), PARENTESES_DIREITO(")");
 
     private final String operator;
 
@@ -14,7 +14,7 @@ public enum Operator {
 
     public static boolean ehUmOperadorValido(String operatorChecking){
         if(operatorChecking == null) return false;
-        return Arrays.stream(values())
+        return Arrays.stream(new Operator[]{MAIS,MENOS,VEZES,DIVISAO})
                 .anyMatch(operator -> operator.toString().equalsIgnoreCase(operatorChecking));
     }
 
@@ -27,6 +27,12 @@ public enum Operator {
     public static boolean ehUmaMultiplicacaoOuDivisao(String operatorChecking){
         if(operatorChecking == null) return false;
         return Arrays.stream(new Operator[]{VEZES, DIVISAO})
+                .anyMatch(operator -> operator.toString().equalsIgnoreCase(operatorChecking));
+    }
+
+    public static boolean ehParenteses(String operatorChecking) {
+        if(operatorChecking == null) return false;
+        return Arrays.stream(new Operator[]{PARENTESES_ESQUERDO, PARENTESES_DIREITO})
                 .anyMatch(operator -> operator.toString().equalsIgnoreCase(operatorChecking));
     }
 
