@@ -20,7 +20,7 @@ public class InfToPos extends MathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             term(); headTail();
         }else{
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
@@ -30,7 +30,7 @@ public class InfToPos extends MathExpressionTranslator {
         if(Operator.ehUmaAdicaoOuSubtracao(TOKEN)){
             stack.push(TOKEN); op(); term(); headTail(); pegarToken(stack.pop());
         }else if(TOKEN != null && !PARENTESES_DIREITO.ehIgual(TOKEN)){
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
@@ -40,7 +40,7 @@ public class InfToPos extends MathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             factor(); termTail();
         }else{
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
@@ -64,17 +64,17 @@ public class InfToPos extends MathExpressionTranslator {
 
     protected void parenEsq() throws SyntaxError{
         String TOKEN = LOOK_AHEAD.atual();
-        System.out.println("parenEsq() -> " + TOKEN);
+
         if(PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             match(TOKEN);
         } else {
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
     protected void parenDir() throws SyntaxError{
         String TOKEN = LOOK_AHEAD.atual();
-        System.out.println("parenDir() -> " + TOKEN);
+
         if(PARENTESES_DIREITO.ehIgual(TOKEN)){
             match(TOKEN);
         } else {

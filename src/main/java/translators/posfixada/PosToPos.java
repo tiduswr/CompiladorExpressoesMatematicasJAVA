@@ -17,7 +17,7 @@ public class PosToPos extends ReversedMathExpressionTranslator {
         if(Operator.ehUmOperadorValido(TOKEN)){
             op(); pegarToken(TOKEN); term(); term();
         }else{
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndexReverseFix());
         }
     }
 

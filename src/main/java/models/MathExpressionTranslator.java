@@ -31,6 +31,7 @@ public abstract class MathExpressionTranslator {
 
     protected void receberExpressao(String expressao){
         LOOK_AHEAD.resetarLookAhead();
+
         for(char TOKEN : expressao.toCharArray()){
             LOOK_AHEAD.add(String.valueOf(TOKEN));
         }
@@ -38,6 +39,7 @@ public abstract class MathExpressionTranslator {
 
     protected void match(String terminal) throws SyntaxError {
         String TOKEN = LOOK_AHEAD.atual();
+
         if(TOKEN != null && TOKEN.equals(terminal)){
             LOOK_AHEAD.proximo();
         }else{
@@ -49,7 +51,6 @@ public abstract class MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmOperadorValido(TOKEN)){
-            System.out.println("op() -> " + TOKEN);
             match(TOKEN);
         }else{
             throw new SyntaxError("Operador Invalido[" + TOKEN + "]");
@@ -60,7 +61,6 @@ public abstract class MathExpressionTranslator {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Digits.ehUmDigitoValido(TOKEN)){
-            System.out.println("dig() -> " + TOKEN);
             match(TOKEN); pegarToken(TOKEN);
         }else{
             throw new SyntaxError("Digito Invalido[" + TOKEN + "]");

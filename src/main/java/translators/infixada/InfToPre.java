@@ -27,7 +27,7 @@ public class InfToPre extends ReversedMathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
              term(); headTail();
         }else{
-            throw new SyntaxError("HEAD -> Erro no Token " + TOKEN);
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndexReverseFix());
         }
     }
 
@@ -37,7 +37,7 @@ public class InfToPre extends ReversedMathExpressionTranslator {
         if(Operator.ehUmaAdicaoOuSubtracao(TOKEN)){
             stack.push(TOKEN); op(); term(); pegarToken(stack.pop()); headTail();
         }else if(TOKEN != null && !PARENTESES_DIREITO.ehIgual(TOKEN)){
-            throw new SyntaxError("HEAD_TAIL -> Erro no Token" + TOKEN);
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndexReverseFix());
         }
     }
 
@@ -47,7 +47,7 @@ public class InfToPre extends ReversedMathExpressionTranslator {
         if(Digits.ehUmDigitoValido(TOKEN) || PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             factor(); termTail();
         }else{
-            throw new SyntaxError("TERM -> Erro no Token" + TOKEN);
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndexReverseFix());
         }
     }
 
@@ -71,17 +71,17 @@ public class InfToPre extends ReversedMathExpressionTranslator {
 
     protected void parenEsq() throws SyntaxError{
         String TOKEN = LOOK_AHEAD.atual();
-        System.out.println("parenEsq() -> " + TOKEN);
+
         if(PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             match(TOKEN);
         } else {
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndex() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndexReverseFix());
         }
     }
 
     protected void parenDir() throws SyntaxError{
         String TOKEN = LOOK_AHEAD.atual();
-        System.out.println("parenDir() -> " + TOKEN);
+
         if(PARENTESES_DIREITO.ehIgual(TOKEN)){
             match(TOKEN);
         } else {

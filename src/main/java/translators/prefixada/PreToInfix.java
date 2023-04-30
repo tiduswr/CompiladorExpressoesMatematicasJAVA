@@ -13,7 +13,7 @@ public class PreToInfix extends MathExpressionTranslator {
         if(Operator.ehUmOperadorValido(TOKEN)){
             op(); term(); pegarToken(TOKEN); term();
         }else{
-            throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndex() + "]");
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
