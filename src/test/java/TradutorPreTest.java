@@ -2,7 +2,7 @@ import data_structures.SyntaxError;
 import models.MathExpressionTranslator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import translators.prefixada.PreToInfix;
+import translators.prefixada.PreToInf;
 import translators.prefixada.PreToPos;
 import translators.prefixada.PreToPre;
 
@@ -62,7 +62,7 @@ public class TradutorPreTest {
     private static Collection<Object[]> conversaoValida(){
         MathExpressionTranslator preToPos = new PreToPos();
         MathExpressionTranslator preToPre = new PreToPre();
-        MathExpressionTranslator preToInf = new PreToInfix();
+        MathExpressionTranslator preToInf = new PreToInf();
 
         return Arrays.asList(new Object[][]{
                 {"+28", "28+", preToPos, "Traducao Prefixa para PosFixa[0]"},

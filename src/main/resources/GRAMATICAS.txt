@@ -19,3 +19,11 @@
         | <head>
 <digit> ::= 0 | 1 | ... | 9
 <op> ::= + - * /
+
+######## POSFIXADA
+
+<head> ::= <term> <term> <op>
+<term> ::= <dig>
+        | <head>
+<digit> ::= 0 | 1 | ... | 9
+<op> ::= + - * /

@@ -5,7 +5,7 @@ import models.Digits;
 import models.MathExpressionTranslator;
 import models.Operator;
 
-public class PreToInfix extends MathExpressionTranslator {
+public class PreToInf extends MathExpressionTranslator {
 
     protected void head() throws SyntaxError {
         String TOKEN = LOOK_AHEAD.atual();

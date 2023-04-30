@@ -5,9 +5,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import translators.infixada.InfToInf;
 import translators.infixada.InfToPos;
 import translators.infixada.InfToPre;
-import translators.prefixada.PreToInfix;
 import translators.prefixada.PreToPos;
-import translators.prefixada.PreToPre;
 
 import java.util.Arrays;
 import java.util.Collection;
