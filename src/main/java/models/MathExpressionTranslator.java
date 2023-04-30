@@ -70,5 +70,10 @@ public abstract class MathExpressionTranslator {
     protected void pegarToken(String TOKEN){
         traducao = traducao + TOKEN;
     }
-
+    protected void pegarToken(Operator TOKEN){
+        traducao = traducao + TOKEN.toString();
+    }
+    protected void pegarToken(Digits TOKEN){
+        traducao = traducao + TOKEN.toString();
+    }
 }

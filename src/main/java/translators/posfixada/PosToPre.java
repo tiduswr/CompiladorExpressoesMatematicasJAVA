@@ -9,13 +9,13 @@ import models.ReversedMathExpressionTranslator;
  * Foi necessário reverter a entrada de dados para validar as expressões
  * para a leitura ser feita da direita para a esquerda
  */
-public class PosToPos extends ReversedMathExpressionTranslator {
+public class PosToPre extends ReversedMathExpressionTranslator {
 
     protected void head() throws SyntaxError {
         String TOKEN = LOOK_AHEAD.atual();
 
         if(Operator.ehUmOperadorValido(TOKEN)){
-            op(); pegarToken(TOKEN); term(); term();
+            op(); term(); term(); pegarToken(TOKEN);
         }else{
             throw new SyntaxError("Erro no elemento " + TOKEN + " [index=" + LOOK_AHEAD.getIndexReverseFix() + "]");
         }

@@ -4,49 +4,22 @@ import data_structures.SyntaxError;
 import models.Digits;
 import models.MathExpressionTranslator;
 import models.Operator;
+import models.ReversedMathExpressionTranslator;
 
 import java.util.Stack;
 
 import static models.Operator.PARENTESES_DIREITO;
 import static models.Operator.PARENTESES_ESQUERDO;
 
-public class InfToPre extends MathExpressionTranslator {
+/**
+ * Foi necessário reverter a entrada de dados para validar expressões e converter
+ * para prefixadas, pois nessa tradução a leitura deve ser feita da direita para
+ * a esquerda
+ * @see <a href="https://www.calcont.in/Conversion/infix_to_prefix">Conversion from Infix to Prefix expressions | CalcCont</a>
+ */
+public class InfToPre extends ReversedMathExpressionTranslator {
 
     Stack<String> stack = new Stack<>();
-
-    @Override
-    protected void receberExpressao(String expressao){
-        LOOK_AHEAD.resetarLookAhead();
-        char[] chars = expressao.toCharArray();
-        for(int i = chars.length -1; i >= 0; i--){
-            String TOKEN = String.valueOf(chars[i]);
-            if(Operator.ehParenteses(TOKEN)){
-                TOKEN = PARENTESES_ESQUERDO.ehIgual(TOKEN) ? ")" : "(";
-            }
-            LOOK_AHEAD.add(TOKEN);
-        }
-    }
-
-    @Override
-    public MathExpressionTranslator verificarExpressao(String expressao) throws SyntaxError {
-        traducao = "";
-        receberExpressao(expressao);
-        head();
-        if(LOOK_AHEAD.atual() != null){
-            int index = LOOK_AHEAD.getIndex();
-            throw new SyntaxError("Erro no elemento "
-                    + (index >=0 && index <= (expressao.length()-1) ? expressao.charAt(index) : "")
-                    + " [index=" + index + "]");
-        }
-        return this;
-    }
-
-    @Override
-    public String pegarUltimaTraducao(){
-        return (new StringBuilder(traducao))
-                .reverse()
-                .toString();
-    }
 
     protected void head() throws SyntaxError {
         String TOKEN = LOOK_AHEAD.atual();
