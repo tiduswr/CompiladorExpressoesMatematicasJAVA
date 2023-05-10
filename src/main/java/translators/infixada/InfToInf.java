@@ -55,6 +55,8 @@ public class InfToInf extends MathExpressionTranslator {
             dig();
         }else if(PARENTESES_ESQUERDO.ehIgual(TOKEN)){
             parenEsq(); head(); parenDir();
+        } else {
+            throw new SyntaxError(TOKEN, LOOK_AHEAD.getIndex());
         }
     }
 
